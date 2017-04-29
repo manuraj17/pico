@@ -3,7 +3,6 @@
 #include <stdio.h>
 
 #define MAX_STRING_LENGTH 255
-#define DELIMITER " "
 #define MAX_TOKENS 100
 
 #ifndef _tokenizer_h
