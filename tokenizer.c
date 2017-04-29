@@ -34,8 +34,8 @@ int tokenize(char *line, char ***tokens, char *delimiter){
 /* 
  * Function:  print_list
  * --------------------
- * Output a list of strings terminated by NULL. Each strings will be printed 
- * on a new line.
+ * Output a list of strings. Each strings will be printed 
+ * on a new line. We assume the string to have a sentinel value (NULL).
  *
  * @param {char **} array of strings
  * @return 
