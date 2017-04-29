@@ -1,39 +1,51 @@
 #include "tokenizer.h"
 
-#define MAX_STRING_LENGTH 255
-#define DELIMITER " "
-
-/*
- * Function to return the array of tokens in a string delimited by space
- * @param   {char*, char**} String to be split, token's array 
+/* 
+ * Function:  tokenize
+ * -------------------
+ * Tokenize a string to array of tokens as per the delimiter
+ * 
+ * @param   {char*, char**, char* } String to be split, token's array, delimoter 
  * @return  {int} number of tokens
  *
- * Example Snippet: 
- *  char* line ="act bat cat dog";
- *  char* tokens[10];
- *  int number_of_tokens = parseString(line, tokens);
- *  for(int i=0; i<number_of_tokens; i++){
- *    printf("%s: %lu\n", tokens[i], strlen(tokens[i]));
- *  }
- *
  */
-int tokenize(char* line, char* tokens[]){
-  // Split the string into an array of strings 
-  // String = array of chars -> char*, char[]
-  // Array of strings = array of array of chars = char**, char[][]
-  // using strtok to tokenize 
-  // strtok(string, delimiter)
+int tokenize(char *line, char ***tokens, char *delimiter){
+
   char* buffer;
   int token_count = 0;
-  char* temp_token;
-  buffer = (char*) malloc(strlen(line) * sizeof(char));
+  
+  buffer    = (char*)  malloc(strlen(line) * sizeof(char));
+  (*tokens) = (char**) malloc(sizeof(char**)*MAX_TOKENS);
+
+  // Create a copy of the string as strtok mutates it. 
   strcpy(buffer, line);
-  temp_token = strtok(buffer, DELIMITER);
-  tokens[token_count] = temp_token;
-  while(temp_token != NULL) {
-    token_count++;
-    temp_token = strtok(NULL, DELIMITER);
-    tokens[token_count] = temp_token;
-  }
+  
+  (*tokens)[token_count++] = strtok(buffer, delimiter);
+  while ((((*tokens)[token_count] = strtok(NULL, delimiter)) != NULL) &&
+      (token_count < MAX_TOKENS)) token_count++;
+  
+  // Add NULL as the last element
+  (*tokens)[token_count+1] = NULL;
+
   return (token_count);
+}
+
+/* 
+ * Function:  print_list
+ * --------------------
+ * Output a list of strings terminated by NULL. Each strings will be printed 
+ * on a new line.
+ *
+ * @param {char **} array of strings
+ * @return 
+ *
+ */
+void print_list(char **list){
+  for(int i=0; list[i]; ++i){
+    const char *ch = list[i];
+    while(*ch) {
+      putchar(*ch++);
+    }
+    putchar('\n');
+  }
 }
