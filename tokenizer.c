@@ -3,9 +3,10 @@
 /* 
  * Function:  tokenize
  * -------------------
- * Tokenize a string to array of tokens as per the delimiter
+ * Tokenize a string to array of tokens as per the delimiter. NULL is appended
+ * to the end of the array as a sentinel value.
  * 
- * @param   {char*, char**, char* } String to be split, token's array, delimoter 
+ * @param   {char*, char**, char* } String to be split, token's array, delimiter 
  * @return  {int} number of tokens
  *
  */
